@@ -8,7 +8,15 @@ public class Channel implements Subject{
     private String channelName;
     private String status;
 
-    Channel() { }
+    Channel(String channelName, String status) { this.channelName = channelName; this.status = status;}
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
+    }
 
     public String getStatus() {
         return status;
@@ -16,12 +24,7 @@ public class Channel implements Subject{
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public void notifyObservers() {
-        for(Observer observer: observerList) {
-            observer.update(status);
-        }
+        notifyObservers();
     }
 
     @Override
@@ -35,7 +38,9 @@ public class Channel implements Subject{
     }
 
     @Override
-    public void notifyObserver() {
-
+    public void notifyObservers() {
+        for(Observer observer: observerList) {
+            observer.update(this.status);
+        }
     }
 }
